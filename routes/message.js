@@ -7,7 +7,7 @@ var nd = new Date(ufc + (3600000*offset));
 var monthly_food="아직 불러오기 전입니다!";
 var request = require('request');
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
-monthly_food = 25;
+monthly_food = JSON.parse(body);
 });
 
 
@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
         if(object.content=="오늘 중식"){
             res_object = {
                 "message":{
-                    "text": (nd.getMonth()+1)+"월 " + nd.getDate()-1+"일 "+"중식 : " + monthly_food.breakfast
+                    "text": "중식 : " + monthly_food[nd.getDate()-3].breakfast
                 },
             "keyboard": menu
             };
