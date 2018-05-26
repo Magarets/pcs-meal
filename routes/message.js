@@ -1,16 +1,18 @@
-let now_date = new Data();
+var express = require('express');
+var router = express.Router();
+let now_date = new Date();
 let offset = +9;
-var ufc = now_date.getTime() + now_date.getTimezoneOFFset() + 60000;
+var ufc = now_date.getTime() + now_date.getTimezoneOffset() + 60000;
 var nd = new Date(ufc + (3600000*offset));
 var monthly_food="아직 불러오기 전입니다!";
+var request = require('request');
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
 monthly_food = JSON.parse(body);
 console.log();
 console.log();
 });
 
-var express = require('express');
-var router = express.Router();
+
 
 /* 사용자의 답장이 들어왔을 때 */
 router.post('/', function(req, res, next) {
