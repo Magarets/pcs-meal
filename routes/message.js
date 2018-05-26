@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
         if(object.content=="오늘 중식"){
             res_object = {
                 "message":{
-                    "text": "[" + getMonth()-1+" 월 " + getDate()-1+"일 " + "중식입니다 ] \n" + monthly_food[nd.getDate()-3].breakfast
+                    "text": "[ " + (getMonth()-1) +"월 " + (getDate()-1) +"일 " + "중식입니다 ] \n" + monthly_food[nd.getDate()-3].breakfast
                 },
             "keyboard": menu
             };
