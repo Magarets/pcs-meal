@@ -20,23 +20,23 @@ router.post('/', function(req, res, next) {
     };
     const menu = {
         type: 'buttons',
-        buttons: ["오늘 중식","오늘 석식"]
+        buttons: ["중식","석식"]
     };
     var res_object;
     if(object.type=="text")
     {
-        if(object.content=="오늘 중식"){
+        if(object.content=="중식"){
             res_object = {
                 "message":{
-                    "text": "[ " + (nd.getMonth()-1) +"월 " + (nd.getDate()-1) +"일 " + "중식입니다. ] \n" + monthly_food[nd.getDate()-3].breakfast
+                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "중식입니다. ] \n" + monthly_food[nd.getDate()-3].breakfast
                 },
             "keyboard": menu
             };
         }
-        else if (object.content=="오늘 석식"){
+        else if (object.content=="석식"){
             res_object = {
                 "message":{
-                    "text": "석식 : " + monthly_food[nd.getDate()-1].lunch
+                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "석식입니다. ] \n" + monthly_food[nd.getDate()-3].lunch
                 },
             "keyboard": menu
             };

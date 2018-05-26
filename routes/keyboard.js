@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   const menu = {
     type: 'buttons',
-    buttons: ["오늘 중식","오늘 석식"]
+    buttons: ["중식","석식"]
   };
   res.set({
       'content-type': 'application/json'
