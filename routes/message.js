@@ -8,10 +8,7 @@ var monthly_food="아직 불러오기 전입니다!";
 var request = require('request');
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
 monthly_food = JSON.parse(body);
-console.log();
-console.log();
 });
-
 
 
 /* 사용자의 답장이 들어왔을 때 */
@@ -23,21 +20,29 @@ router.post('/', function(req, res, next) {
     };
     const menu = {
         type: 'buttons',
-        buttons: ["오늘 급식"]
+        buttons: ["오늘 중식","오늘 석식"]
     };
     var res_object;
     if(object.type=="text")
     {
-        if(object.content=="오늘 급식"){
+        if(object.content=="오늘 중식"){
             res_object = {
                 "message":{
-                    "text": "중식 : " + monthly_food[nd.getDate()-1].breakfast + "\n석식 : " + monthly_food[nd.getDate()-1].lunch
+                    "text": "중식 : " + monthly_food[nd.getDate()-1].breakfast
+                },
+            "keyboard": menu
+            };
+        }
+        else if (object.content=="오늘 석식"){
+            res_object = {
+                "message":{
+                    "text": "석식 : " + monthly_food[nd.getDate()-1].lunch
                 },
             "keyboard": menu
             };
         }
     }
-    res.set({ //6
+    res.set({ 
         'content-type': 'application/json'
     }).send(JSON.stringify(res_object));
 });
