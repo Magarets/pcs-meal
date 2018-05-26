@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   const menu = {
     type: 'buttons',
-    buttons: ["노래 추천해줘.", "네 노래로 추천해줘."]
+    buttons: ["오늘 급식"]
   };
   res.set({
       'content-type': 'application/json'
