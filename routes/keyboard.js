@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   };
   res.set({
     'content-type' : 'application/json'
-  }).res.send(JSON,stringify(menu));
+  }).send(JSON,stringify(menu));
 });
 
 module.exports = router;
