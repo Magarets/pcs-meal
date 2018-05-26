@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
         if(object.content=="중식"){
             res_object = {
                 "message":{
-                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "중식입니다. ] \n" + monthly_food[nd.getDate()-3].breakfast
+                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "중식입니다. ] \n" + monthly_food[nd.getDate()-1].breakfast
                 },
             "keyboard": menu
             };
@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
         else if (object.content=="석식"){
             res_object = {
                 "message":{
-                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "석식입니다. ] \n" + monthly_food[nd.getDate()-3].lunch
+                    "text": "[ " + (nd.getMonth() + 1) +"월 " + (nd.getDate()) +"일자 " + "석식입니다. ] \n" + monthly_food[nd.getDate()-1].lunch
                 },
             "keyboard": menu
             };
