@@ -12,34 +12,34 @@ router.post('/', function(req, res, next) {
         type: 'buttons',
         buttons: ["노래 추천해줘.", "네 노래로 추천해줘."]
     };
-    var res_object; //3
+    var res_object;
     if(object.type=="text"){
-            if(object.content=="노래 추천해줘."){
-                res_object = {
-                    "message": {
+        if(object.content=="노래 추천해줘."){
+            res_object = {
+                "message": {
                     "text": '조지 - boat 어때?'
-                    },
+                },
                 "keyboard": menu
                 };
             }
             else if(object.content=="네 노래로 추천해줘."){ //5
-                res_object = {
-                    "message": {
+            res_object = {
+                 "message": {
                     "text": 'Jinyo - 수면증 어때?'
-                    },
+                },
                 "keyboard": menu
                 };
             }
             else{
                 res_object = {
-                    "message": {
+                "message": {
                     "text": object.content
-                    },
-                    "keyboard": menu
+                },
+                "keyboard": menu
                 };
             }
     }
-     res.set({ //6
+     res.set({
     'content-type': 'application/json'
     }).send(JSON.stringify(res_object));
 });
