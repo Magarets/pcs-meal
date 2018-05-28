@@ -6,7 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var keyboardRouter = require('./routes/keyboard');
-var messageRouter = require('./routes/message');
+var yangjungRouter = require('./routes/yangjung');
+var pcsgRouter = require('./routes/pcs');
 
 var app = express();
 
@@ -22,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/keyboard', keyboardRouter);
-app.use('/message', messageRouter);
 app.use('/yangjung', yangjungRouter);
 app.use('/pcs', pcsRouter);
 // catch 404 and forward to error handler

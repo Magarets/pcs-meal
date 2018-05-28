@@ -18,10 +18,15 @@ monthly_food[1] = JSON.parse(body);
 /* 처음 들어왔을 때 */
 const menu = {
    type: 'buttons',
-   buttons: ["중식","석식"]
+   buttons: ["오늘 급식","내일 급식","일주일 급식"]
 };
+router.get('/keyboard', function(req, res, next) {
+    res.set({
+    'content-type': 'application/json'
+    }).send(JSON.stringify(menu));
+});
 
-router.post('/keyboard', function(req, res, next) {
+router.post('/message', function(req, res, next) {
     const object = {
         user_key: req.body.user_key, // 메시지를 발송한 user을 식별할 수 있는 key
         type: req.body.type, // user가 보낸 message의 형태. text , photo로 이루어짐
