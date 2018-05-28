@@ -95,5 +95,3 @@ return aa;
 
 module.exports = router;
 
-
-출처: http://wingnim.tistory.com/entry/Nodejs로-카카오톡-플러스-친구-봇-만들기-06-급식-알리미-기능-추가?category=750003 [jinyo의 뇌]
