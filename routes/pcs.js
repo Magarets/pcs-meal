@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var router = express.Router();
 
 let now_date = new Date();
 let offset = +9;
@@ -75,7 +76,6 @@ router.post('/message', function(req, res, next) {
     }).send(JSON.stringify(res_object));
 });
 
-module.exports = router;
 function makeText(day){
     console.log(day);
     var aa=
@@ -85,3 +85,5 @@ function makeText(day){
     aa=(day.getMonth()+1)+"월 " +(day.getDate())+"일 급식정보\n" + aa;
     return aa;
 }
+
+module.exports = router;

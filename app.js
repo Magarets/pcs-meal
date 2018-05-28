@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var keyboardRouter = require('./routes/keyboard');
 var yangjungRouter = require('./routes/yangjung');
-var pcsgRouter = require('./routes/pcs');
+var pcsRouter = require('./routes/pcs');
 
 var app = express();
 
