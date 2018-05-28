@@ -30,18 +30,6 @@ request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd2.getFullYear()+'&mo
 monthly_food[1] = JSON.parse(body);
 });
 
-
-/* 처음 들어왔을 때 */
-const menu = {
-   type: 'buttons',
-   buttons: ["오늘 급식","내일 급식","일주일 급식"]
-};
-router.get('/keyboard', function(req, res, next) {
-    res.set({
-    'content-type': 'application/json'
-    }).send(JSON.stringify(menu));
-});
-
 /* 사용자의 답장이 들어왔을 때 */
 router.post('/message', function(req, res, next) {
     const object = {
