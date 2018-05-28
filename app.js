@@ -23,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/keyboard', keyboardRouter);
 app.use('/message', messageRouter);
+app.use('/yangjung', yangjungRouter);
+app.use('/pcs', pcsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 next(createError(404));
