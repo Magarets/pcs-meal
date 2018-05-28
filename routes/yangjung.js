@@ -23,10 +23,10 @@ var nd = new Date(utc + (3600000*offset));
 var nd2 = new Date(utc + (3600000*offset));
 nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
 var monthly_food=[0,0];
-request('http://schoolmenukr.ml/api/goe/J100006486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
+request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
 monthly_food[0] = JSON.parse(body);
 });
-request('http://schoolmenukr.ml/api/goe/J100006486?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
+request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
 monthly_food[1] = JSON.parse(body);
 });
 
