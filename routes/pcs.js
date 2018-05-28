@@ -7,6 +7,7 @@ let offset = +9;
 var ufc = now_date.getTime() + now_date.getTimezoneOffset() + 60000;
 var nd = new Date(ufc + (3600000*offset));
 var nd2 = new Date(ufc + (3600000*offset));
+nd2.setMonth(nd2.getMonth()+1,1);
 var monthly_food=[0,0];
 var request = require('request');
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
