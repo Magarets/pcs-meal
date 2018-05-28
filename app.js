@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var keyboardRouter = require('./routes/keyboard');
 var yangjungRouter = require('./routes/yangjung');
 var pcsRouter = require('./routes/pcs');
+var psdgRouter = require('./routes/psdg');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/keyboard', keyboardRouter);
 app.use('/yangjung', yangjungRouter);
 app.use('/pcs', pcsRouter);
+app.use('/psdg', psdgRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 next(createError(404));
