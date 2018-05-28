@@ -1,21 +1,35 @@
 var express = require('express');
-var request = require('request');
+const request = require('request');
 var router = express.Router();
+
+/* 처음 들어왔을 때 */
+
+const menu = {
+type: 'buttons',
+buttons: ["오늘 급식", "내일 급식","일주일 급식"]
+};
+
+router.get('/keyboard', function(req, res, next) {
+res.set({
+'content-type': 'application/json'
+}).send(JSON.stringify(menu));
+});
+
 
 let now_date = new Date();
 let offset = +9;
-var ufc = now_date.getTime() + now_date.getTimezoneOffset() + 60000;
-var nd = new Date(ufc + (3600000*offset));
-var nd2 = new Date(ufc + (3600000*offset));
-nd2.setMonth(nd2.getMonth()+1,1);
+var utc = now_date.getTime() + (now_date.getTimezoneOffset() * 60000);
+var nd = new Date(utc + (3600000*offset));
+var nd2 = new Date(utc + (3600000*offset));
+nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
 var monthly_food=[0,0];
-var request = require('request');
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
 monthly_food[0] = JSON.parse(body);
 });
 request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
 monthly_food[1] = JSON.parse(body);
 });
+
 
 /* 처음 들어왔을 때 */
 const menu = {
@@ -81,9 +95,8 @@ router.post('/message', function(req, res, next) {
     function makeText(day){
     console.log(day);
     var aa=
-    "조식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].breakfast + "\n" +
-    "중식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].lunch + "\n" +
-    "석식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].dinner + "\n";
+    "중식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].breakfast + "\n" +
+    "석식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].lunch + "\n";
     aa=aa.replace(/[,]/g,', ').replace(/[.]/g,'').replace(/[0-9]/g,'');
     aa="\n"+(day.getMonth()+1)+"월 "+(day.getDate())+"일 급식정보\n"+aa;
     return aa;

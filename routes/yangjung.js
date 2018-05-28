@@ -23,10 +23,10 @@ var nd = new Date(utc + (3600000*offset));
 var nd2 = new Date(utc + (3600000*offset));
 nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
 var monthly_food=[0,0];
-request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
+request('http://schoolmenukr.ml/api/pen/C100000522?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
 monthly_food[0] = JSON.parse(body);
 });
-request('http://schoolmenukr.ml/api/pen/C100000486?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
+request('http://schoolmenukr.ml/api/pen/C100000522?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
 monthly_food[1] = JSON.parse(body);
 });
 
@@ -85,9 +85,8 @@ res.set({ //6
 function makeText(day){
 console.log(day);
 var aa=
-"조식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].breakfast + "\n" +
-"중식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].lunch + "\n" +
-"석식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].dinner + "\n";
+"중식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].breakfast + "\n" +
+"석식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].lunch + "\n";
 aa=aa.replace(/[,]/g,', ').replace(/[.]/g,'').replace(/[0-9]/g,'');
 aa="\n"+(day.getMonth()+1)+"월 "+(day.getDate())+"일 급식정보\n"+aa;
 return aa;
