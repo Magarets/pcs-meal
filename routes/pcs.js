@@ -102,9 +102,8 @@ router.post('/message', function(req, res, next) {
     function makeText(day){
         console.log(day);
         var aa=
-        "조식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].breakfast + "\n" +
-        "중식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].lunch + "\n" +
-        "석식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].dinner + "\n";
+        "중식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].breakfast + "\n" +
+        "석식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].lunch + "\n";
         aa=aa.replace(/[,]/g,', ').replace(/[.]/g,'').replace(/[0-9]/g,'');
         aa="\n"+(day.getMonth()+1)+"월 "+(day.getDate())+"일 급식정보\n"+aa;
         return aa;
