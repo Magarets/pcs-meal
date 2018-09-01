@@ -6,12 +6,16 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "debug": "~2.6.9",
-    "ejs": "^2.5.9",
-    "express": "~4.16.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
     "http-errors": "~1.6.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.2.12",
     "morgan": "^1.9.0",
+    "path": "^0.12.7",
     "request": "^2.87.0"
   }
 }

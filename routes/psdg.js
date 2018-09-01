@@ -1,3 +1,5 @@
+//사대부고
+
 var express = require('express');
 const request = require('request');
 var router = express.Router();
@@ -16,19 +18,31 @@ res.set({
 });
 
 
+function refresh_food()
+{
 let now_date = new Date();
 let offset = +9;
-var utc = now_date.getTime() + (now_date.getTimezoneOffset() * 60000);
-var nd = new Date(utc + (3600000*offset));
-var nd2 = new Date(utc + (3600000*offset));
+utc = now_date.getTime() + (now_date.getTimezoneOffset() * 60000);
+nd = new Date(utc + (3600000*offset));
+nd2 = new Date(utc + (3600000*offset));
 nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
-var monthly_food=[0,0];
-request('http://schoolmenukr.ml/api/pen/A000003509?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
-monthly_food[0] = JSON.parse(body);
-});
-request('http://schoolmenukr.ml/api/pen/A000003509?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
-monthly_food[1] = JSON.parse(body);
-});
+monthly_food=[0,0];
+//request('https://schoolmenukr.ml/api/high/A000003509?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
+//    console.log("사1" + body)
+//monthly_food[0] = JSON.parse(body);
+
+//});
+
+//request('https://schoolmenukr.ml/api/high/A000003509?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
+//    console.log("사2" + body)
+//monthly_food[1] = JSON.parse(body);
+//});
+
+//console.log("급식 불러옴")
+setTimeout(refresh_food, 20*60*1000);
+}
+refresh_food();
+
 
 /* 사용자의 답장이 들어왔을 때 */
 router.post('/message', function(req, res, next) {
@@ -48,31 +62,32 @@ router.post('/message', function(req, res, next) {
     };
     }
     else if(object.content=="내일 급식"){
-    var temp = new Date(utc + (3600000*offset));
-    temp.setMonth(nd.getMonth(),nd.getDate()+1);
-    res_object = {
-    "message": {
-    "text": makeText(temp)
-    },
-    "keyboard": menu
-    };
-    }
+        var temp = new Date(utc + (3600000*offset));
+        temp.setMonth(nd.getMonth(),nd.getDate()+1);
+        res_object = {
+        "message": {
+        "text": makeText(temp)
+        },
+        "keyboard": menu
+        };
+        }
+        
     else if(object.content=="일주일 급식"){
-    var week=[],text="";
-    for(i=0;i<7;i++){
-    var temp = new Date(utc + (3600000*offset));
-    temp.setMonth(nd.getMonth(),nd.getDate()+i);
-    week.push(temp);
-    }
-    for(i=0;i<7;i++){
-    text+=makeText(week[i]);
-    }
-    res_object = {
-    "message": {
-    "text": text
-    },
-    "keyboard": menu
-    };
+        var week=[],text="";
+        for(i=0;i<7;i++){
+        var temp = new Date(utc + (3600000*offset));
+        temp.setMonth(nd.getMonth(),nd.getDate()+i);
+        week.push(temp);
+        }
+        for(i=0;i<7;i++){
+        text+=makeText(week[i]);
+        }
+        res_object = {
+        "message": {
+        "text": text
+        },
+        "keyboard": menu
+        };
     }
     }
     res.set({ //6
@@ -81,13 +96,15 @@ router.post('/message', function(req, res, next) {
     });
     
     function makeText(day){
-    console.log(day);
-    var aa=
-    "중식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].breakfast + "\n" +
-    "석식 : " + monthly_food[day.getMonth()-nd.getMonth()][day.getDate()-1].lunch + "\n";
-    aa=aa.replace(/[,]/g,', ').replace(/[.]/g,'').replace(/[0-9]/g,'');
-    aa="\n"+(day.getMonth()+1)+"월 "+(day.getDate())+"일 급식정보\n"+aa;
-    return aa;
-    }
+        console.log(day);
+        var aa=
+        "조식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].breakfast + "\n" +
+        "중식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].lunch + "\n" +
+        "석식 : " + monthly_food[day.getMonth()-nd.getMonth()].menu[day.getDate()-1].dinner + "\n";
+        aa=aa.replace(/[,]/g,', ').replace(/[.]/g,'').replace(/[0-9]/g,'');
+        aa="\n"+(day.getMonth()+1)+"월 "+(day.getDate())+"일 급식정보\n"+aa;
+        return aa;
+        }
+        
     
     module.exports = router;
