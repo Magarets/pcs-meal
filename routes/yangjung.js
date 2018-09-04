@@ -26,23 +26,21 @@ var monthly_food=[0,0];
 
 function refresh_food()
 {
-let now_date = new Date();
-let offset = +9;
-utc = now_date.getTime() + (now_date.getTimezoneOffset() * 60000);
-nd = new Date(utc + (3600000*offset));
-nd2 = new Date(utc + (3600000*offset));
-nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
-monthly_food=[0,0];
-request('https://schoolmenukr.ml/api/high/C100000522?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
-    console.log("양정1" + body)
-monthly_food[0] = JSON.parse(body);
-});
-request('https://schoolmenukr.ml/api/high/C100000522?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
-    console.log("양정2" + body)
-monthly_food[1] = JSON.parse(body);
-});
-console.log("급식 불러옴")
-setTimeout(refresh_food, 20*60*1000);
+    let now_date = new Date();
+    let offset = +9;
+    utc = now_date.getTime() + (now_date.getTimezoneOffset() * 60000);
+    nd = new Date(utc + (3600000*offset));
+    nd2 = new Date(utc + (3600000*offset));
+    nd2.setMonth(nd2.getMonth()+1,1);//1 : 다음 달로 설정
+    monthly_food=[0,0];
+    request('https://schoolmenukr.ml/api/high/C100000522?year='+nd.getFullYear()+'&month='+(nd.getMonth()+1), (err, res, body) => {
+        monthly_food[0] = JSON.parse(body);
+    });
+    request('https://schoolmenukr.ml/api/high/C100000522?year='+nd2.getFullYear()+'&month='+(nd2.getMonth()+1), (err, res, body) => {
+        monthly_food[1] = JSON.parse(body);
+    });
+    console.log("급식 불러옴")
+    setTimeout(refresh_food, 20*60*1000);
 }
 refresh_food();
 
@@ -57,22 +55,22 @@ content: req.body.content // user가 보낸 메시지 내용.
 var res_object;
 if(object.type=="text"){
 if(object.content=="오늘 급식"){
-res_object = {
-"message": {
-"text": makeText(nd)
-},
-"keyboard": menu
-};
-}
-else if(object.content=="내일 급식"){
-var temp = new Date(utc + (3600000*offset));
-temp.setMonth(nd.getMonth(),nd.getDate()+1);
-res_object = {
-"message": {
-"text": makeText(temp)
-},
-"keyboard": menu
-};
+    res_object = {
+            "message": {
+            "text": makeText(nd)
+        },
+        "keyboard": menu
+    };
+    }
+    else if(object.content=="내일 급식"){
+        var temp = new Date(utc + (3600000*offset));
+        temp.setMonth(nd.getMonth(),nd.getDate()+1);
+        res_object = {
+            "message": {
+            "text": makeText(temp)
+        },
+        "keyboard": menuas
+    };
 }
 else if(object.content=="일주일 급식"){
     var week=[],text="";
